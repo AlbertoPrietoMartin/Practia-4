@@ -6,82 +6,82 @@ export const typeDefs = gql`
         id: ID!
         username: String!
         email: String!
-        password: String!
-        createdAt: Date!
+        createdAt: String!
     }
 
-    type Projects {
-        _id: ID!
+    type Project {
+        id: ID!
         name: String!
         description: String!
-        startDate: Date!
+        startDate: String!
         endDate: String!
-        owner: String!
-        members:  [ID!]!
-        tasks: [Tasks!]!
+        owner: User!
+        members: [User!]!
+        tasks: [Task!]!
     }
 
-    type Tasks {
-        _id: ID!,
+    type Task {
+        id: ID!
         title: String!
         projectId: ID!
-        assignedTo: ID!
-        status: String!
+        assignedTo: User
+        status: String!          
+        priority: String!        
+        dueDate: String!
     }
-    
-    type AuthPayload{
+
+    type AuthPayload {
         token: String!
         user: User!
     }
 
-    input reigsterInput{
+    input RegisterInput {
         username: String!
         email: String!
         password: String!
     }
 
-    input loginInput{
+    input LoginInput {
         email: String!
         password: String!
     }
 
-    input createProjectInput{
-        name: String!
-        description: String!
-        createDate: String!
-        endDate: String!
-    }
-
-    input updateProjectInput{
+    input CreateProjectInput {
         name: String!
         description: String!
         startDate: String!
-        endDate!
+        endDate: String!
     }
 
-    input TaskInput{
+    input UpdateProjectInput {
+        name: String
+        description: String
+        startDate: String
+        endDate: String
+    }
+
+    input TaskInput {
         title: String!
-        assignedTo: ID!
-        priority: priority!
+        assignedTo: ID
+        priority: String!        
         dueDate: String!
     }
 
-    input updateTaskInput{
-        title: String!
-        assignedTo: ID!
-        status: taskStatus!
-        priority: priority!
-        dueDate: String!
+    input UpdateTaskInput {
+        title: String
+        assignedTo: ID
+        status: String           
+        priority: String
+        dueDate: String
     }
 
     type Query {
+        me: User!
         myProjects: [Project!]!
-        projectDetails(projectId: ID): Project!
+        projectDetails(projectId: ID!): Project!
         users: [User!]!
     }
 
-
-    #add devuelve el objeto creado y login y register el token jwt
     type Mutation {
         register(input: RegisterInput!): AuthPayload!
         login(input: LoginInput!): AuthPayload!
@@ -91,9 +91,8 @@ export const typeDefs = gql`
         addMember(projectId: ID!, userId: ID!): Project!
         createTask(projectId: ID!, input: TaskInput!): Task!
 
-        #en teoria esto no entra en el examen
-        updateTaskStatus(taskId: ID!, status: TaskStatus!): Task!
-        deleteProject(id: ID!): Project!    
+        updateTaskStatus(taskId: ID!, status: String!): Task!
+        deleteProject(id: ID!): Boolean!
     }
 
 `;
