@@ -11,6 +11,7 @@ const TASK_COLLECTION = "taskCollection";
 const USERS_COLLECTION = "usersCollection";
 const PROJECT_COLLECTION = "projectCollection";
 
+//comentario
 export const resolvers: IResolvers = {
     Query : {
         myProjects: async(_, __, {user})=>{
