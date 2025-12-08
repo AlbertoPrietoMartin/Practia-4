@@ -7,13 +7,15 @@ const COLLECTION = "usersVideoGames";
 
 //obtiene la contraseña, la encripta, guarda al usuario en la coleccion
 //y te devuelve el id del nuevo usuario (NUNCA guardas la contraseña sin cifrar)
-export const  createUser = async (email: string, password: string)=>{
+export const  createUser = async (email: string, password: string, username: string, createdAt: Date)=>{
     const db= getDB();
     const laPasswordEncripta = await bcrypt.hash(password, 10);
 
     const result = await db.collection(COLLECTION).insertOne({
         email,
-        password: laPasswordEncripta
+        password: laPasswordEncripta,
+        username,
+        createdAt
     });
 
     //toString pa poder usarlo sin JWT

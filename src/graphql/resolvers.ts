@@ -38,8 +38,8 @@ export const resolvers: IResolvers = {
     },
 
     Mutation: {
-        register: async(_, {email, password}: {email:string, password: string})=>{
-            const userId = await createUser(email,password);
+        register: async(_, {email, password, username, createdAt}: {email:string, password: string, username: string, createdAt: Date})=>{
+            const userId = await createUser(email, password, username, createdAt);
             return signToken(userId);
         },
 
